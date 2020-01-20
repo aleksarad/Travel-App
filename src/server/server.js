@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //Initializing main project folder
-app.use(express.static('src/client'));
+app.use(express.static('dist'));
 
 //Server setup
 app.listen(8000, () => { 
