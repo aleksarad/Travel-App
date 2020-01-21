@@ -28,6 +28,25 @@ const userName = '&maxRows=10&username=aradevich';
 
 async function getCoords(city) {
     const url = baseURL + city + userName;
-    //testing to make sure URL returned is correct
-    return url;
+    const getData = await fetch(url);
+    try {
+        if (getData.status !== 200) {
+        throw new Error("Not 200 response")
+        }
+        else {
+        const data = await getData.json();
+        const coordData = {
+            latitude: data.geonames[0].lat,
+            longitude: data.geonames[0].lng,
+            country: data.geonames[0].countryName
+        }
+        return coordData;
+        }
+    //alert user if unable to retrieve API data with input city
+        } catch(error){
+            alert('Invalid city');
+            return false;
+        }
 }
+
+getCoords('Paris');
