@@ -20,3 +20,14 @@ app.listen(8000, () => {
 app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
 })
+
+//Geonames API
+
+const baseURL = 'http://api.geonames.org/searchJSON?q=';
+const userName = '&maxRows=10&username=aradevich';
+
+async function getCoords(city) {
+    const url = baseURL + city + userName;
+    //testing to make sure URL returned is correct
+    return url;
+}
