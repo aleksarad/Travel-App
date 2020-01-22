@@ -25,6 +25,14 @@ app.get('/', function (req, res) {
 
 const baseURL = 'http://api.geonames.org/searchJSON?q=';
 const userName = '&maxRows=10&username=aradevich';
+const date = '11.22.2020'; 
+const urlKey = 'ad51d28551f5a01df42ccd0ea7805182';
+const unixDate = Math.round(new Date(date).getTime()/1000);
+const unixToday = Math.round(new Date().getTime()/1000);
+const daysBtwn = unixDate - unixToday;
+
+
+const projData = {};
 
 async function getCoords(city) {
     const url = baseURL + city + userName;
@@ -36,11 +44,12 @@ async function getCoords(city) {
         else {
         const data = await getData.json();
         const coordData = {
-            latitude: data.geonames[0].lat,
-            longitude: data.geonames[0].lng,
+            lat: data.geonames[0].lat,
+            lon: data.geonames[0].lng,
             country: data.geonames[0].countryName
         }
-        return coordData;
+        projData.coord = coordData;
+        getWeatherData(projData,date);
         }
     //alert user if unable to retrieve API data with input city
         } catch(error){
@@ -49,4 +58,18 @@ async function getCoords(city) {
         }
 }
 
-getCoords('Paris');
+
+async function getWeatherData(projData, date) {
+    const lati = projData.coord.lat;
+    const long = projData.coord.lon;
+
+//604800 is 7 days in UNIX
+    if(daysBtwn > 604800){
+        url = `https://api.darksky.net/forecast/${urlKey}/${lati},${long},${unixDate}`
+    }
+    else {
+        url = `https://api.darksky.net/forecast/${urlKey}/${lati},${long}`
+    }
+    console.log(url, lati, long);
+}
+
