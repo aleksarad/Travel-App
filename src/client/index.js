@@ -4,7 +4,8 @@ alert('this is dist');
 const baseURL = 'http://api.geonames.org/searchJSON?q=';
 const userName = '&maxRows=10&username=aradevich';
 const date = '11.22.2020'; 
-const urlKey = 'ad51d28551f5a01df42ccd0ea7805182';
+const darkSkyKey = 'ad51d28551f5a01df42ccd0ea7805182';
+const pixabayKey = '15014683-5b1e294ffb954d607aae92b8b';
 const unixDate = Math.round(new Date(date).getTime()/1000);
 const unixToday = Math.round(new Date().getTime()/1000);
 const daysBtwn = unixDate - unixToday;
@@ -28,6 +29,7 @@ async function getCoords(city) {
             }
             projData.coord = coordData;
             getWeatherData(projData,date);
+            getPicture(city); 
         }
     //alert user if unable to retrieve API data with input city
         } catch(error){
@@ -43,10 +45,10 @@ async function getWeatherData(projData, date) {
 
 //604800 is 7 days in UNIX
     if(daysBtwn > 604800){
-        url = `https://api.darksky.net/forecast/${urlKey}/${lati},${long},${unixDate}`
+        url = `https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long},${unixDate}`
     }
     else {
-        url = `https://api.darksky.net/forecast/${urlKey}/${lati},${long}`
+        url = `https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long}`
     }
     const getData = await fetch(url);
     console.log(url)
@@ -61,8 +63,24 @@ async function getWeatherData(projData, date) {
             console.log(projData);
 }
 
+async function getPicture(city){
+    const country = projData.coord.country.replace(/\s+/g, '+');
+    const newCity = city.replace(/\s+/g, '+');
+    const imgURL = `https://pixabay.com/api/?key=${pixabayKey}&q=${newCity},${country}&image_type=photo`;
+        const getData = await fetch(imgURL);
+        const data = await getData.json();
+        console.log(data);
+        const picData = {
+            url: data.hits[0].webformatURL,
+        }
+        projData.picture = picData;
+        console.log(projData);
+}
+
 getCoords('Paris');
 console.log(projData);
+
+
 
 //import scss
 // import './styles/main.scss'
