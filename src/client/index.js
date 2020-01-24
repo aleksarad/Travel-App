@@ -1,4 +1,5 @@
 //should import/export main functions of our application js
+//move code to server.js
 alert('this is dist');
 
 const baseURL = 'http://api.geonames.org/searchJSON?q=';
@@ -12,6 +13,8 @@ const daysBtwn = unixDate - unixToday;
 
 
 const projData = {};
+
+
 
 async function getCoords(city) {
     const url = baseURL + city + userName;
@@ -28,8 +31,6 @@ async function getCoords(city) {
                 country: data.geonames[0].countryName
             }
             projData.coord = coordData;
-            getWeatherData(projData,date);
-            getPicture(city); 
         }
     //alert user if unable to retrieve API data with input city
         } catch(error){
@@ -77,7 +78,11 @@ async function getPicture(city){
         console.log(projData);
 }
 
-getCoords('Paris');
+async function getAPIData (city){
+    getCoords(city).then(() => getWeatherData(projData,date)).then(() => getPicture(city));
+}
+
+getAPIData('Paris');
 console.log(projData);
 
 
