@@ -1,19 +1,10 @@
-const baseURL = 'http://api.geonames.org/searchJSON?q=';
-const userName = '&maxRows=10&username=aradevich';
-const date = document.getElementById('date').value; 
-const pixabayKey = '15014683-5b1e294ffb954d607aae92b8b';
-const unixDate = Math.round(new Date(date).getTime()/1000);
-const unixToday = Math.round(new Date().getTime()/1000);
-const daysBtwn = unixDate - unixToday;
-
-
-
+const date = document.getElementById('date'); 
 const projData = {};
 
 
 
 async function getCoords(city) {
-    const url = baseURL + city + userName;
+    const url = `http://api.geonames.org/searchJSON?q=${city}&maxRows=10&username=aradevich`;
     const getData = await fetch(url);
     try {
         if (getData.status !== 200) {
@@ -39,20 +30,18 @@ async function getCoords(city) {
 
 async function getWeatherData(projData, date) {
     const darkSkyKey = 'ad51d28551f5a01df42ccd0ea7805182';
+    const unixDate = Math.round(new Date(date.value).getTime()/1000);
+    const unixToday = Math.round(new Date().getTime()/1000);
+    const daysBtwn = unixDate - unixToday;
     const lati = projData.coord.lat;
     const long = projData.coord.lon;
-    let url = `https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long}`
 
-//604800 is 7 days in UNIX
-    // if(daysBtwn > 604800){
-    //     let url = `https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long},${unixDate}`;
-    // }
-    // else {
-    //     let url = `https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long}`;
-    // }
+    console.log(unixDate, unixToday, daysBtwn);
+    var url = (daysBtwn > 604800) ? `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long},${unixDate}`:`https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long}`;
+    
     const getData = await fetch(url);
     console.log(url)
-        const data = await getData.json();
+    const data = await getData.json();
             console.log(data);
             const weatherData = {
                 tempHigh: data.daily.data[0].temperatureHigh,
@@ -64,6 +53,7 @@ async function getWeatherData(projData, date) {
 }
 
 async function getPicture(city){
+    const pixabayKey = '15014683-5b1e294ffb954d607aae92b8b';
     const country = projData.coord.country.replace(/\s+/g, '+');
     const newCity = city.replace(/\s+/g, '+');
     const imgURL = `https://pixabay.com/api/?key=${pixabayKey}&q=${newCity},${country}&image_type=photo`;
@@ -78,8 +68,8 @@ async function getPicture(city){
 }
 
 function updateUI(projData) {
-    document.getElementById('weatherSummary').innerHTML = projData.weather.summary;
-    document.getElementById('temp').innerHTML = `High of ${projData.weather.tempHigh}&#8457;, low of ${projData.weather.tempLow}&#8457;`;
+    document.getElementById('weatherSummary').innerHTML = `<strong>Forecast</strong>: ${projData.weather.summary}`;
+    document.getElementById('temp').innerHTML = `High of <strong>${projData.weather.tempHigh}&#8457;</strong>, low of <strong>${projData.weather.tempLow}&#8457;</strong>`;
     document.getElementById('tripPic').src = projData.picture.url;
 }
 

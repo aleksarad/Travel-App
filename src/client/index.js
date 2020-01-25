@@ -1,6 +1,5 @@
 //should import/export main functions of our application js
 //move code to server.js
-alert('this is dist');
 
 import { getAPIData } from './js/app.js'
 
