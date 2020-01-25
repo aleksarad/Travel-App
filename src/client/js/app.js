@@ -37,7 +37,7 @@ async function getWeatherData(projData, date) {
     const long = projData.coord.lon;
 
     console.log(unixDate, unixToday, daysBtwn);
-    var url = (daysBtwn > 604800) ? `http://0.0.0.0:8080/https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long},${unixDate}`:`http://localhost:8080/https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long}`;
+    var url = (daysBtwn > 604800) ? `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long},${unixDate}`:`https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long}`;
     
     const getData = await fetch(url);
     console.log(url)
