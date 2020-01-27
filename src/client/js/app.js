@@ -5,6 +5,7 @@ const projData = {};
 
 async function getCoords(city) {
     const url = `http://api.geonames.org/searchJSON?q=${city}&maxRows=10&username=aradevich`;
+    console.log(url);
     const getData = await fetch(url);
     try {
         if (getData.status !== 200) {
@@ -28,6 +29,45 @@ async function getCoords(city) {
 }
 
 
+// async function getWeatherData(projData, date) {
+    // const darkSkyKey = 'ad51d28551f5a01df42ccd0ea7805182';
+    // const unixDate = Math.round(new Date(date.value).getTime()/1000);
+    // const unixToday = Math.round(new Date().getTime()/1000);
+    // const daysBtwn = unixDate - unixToday;
+    // const lati = projData.coord.lat;
+    // const long = projData.coord.lon;
+
+    // console.log(unixDate, unixToday, daysBtwn);
+    // var url = (daysBtwn > 604800) ? `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long},${unixDate}`:`https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long}`;
+    
+//     // const getData = await fetch(url);
+//     // console.log(url)
+//     // const data = await getData.json();
+//     //         console.log(data);
+//     //         const weatherData = {
+//     //             tempHigh: data.daily.data[0].temperatureHigh,
+//     //             tempLow: data.daily.data[0].temperatureLow,
+//     //             summary: data.daily.data[0].summary
+//     //         }
+//     //         projData.weather = weatherData;
+//     //         console.log(projData);
+// }
+
+// const postReq = async (path, url) => {
+//     const getData = await fetch(path, {
+//       method: 'POST',
+//       cache: 'no-cache', 
+//       credentials: 'same-origin',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({url: url})
+//     })
+//     const data = await getData;
+//     console.log(data)
+//     return data;
+// }
+
 async function getWeatherData(projData, date) {
     const darkSkyKey = 'ad51d28551f5a01df42ccd0ea7805182';
     const unixDate = Math.round(new Date(date.value).getTime()/1000);
@@ -37,20 +77,28 @@ async function getWeatherData(projData, date) {
     const long = projData.coord.lon;
 
     console.log(unixDate, unixToday, daysBtwn);
-    var url = (daysBtwn > 604800) ? `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long},${unixDate}`:`https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long}`;
-    
-    const getData = await fetch(url);
-    console.log(url)
-    const data = await getData.json();
-            console.log(data);
-            const weatherData = {
-                tempHigh: data.daily.data[0].temperatureHigh,
-                tempLow: data.daily.data[0].temperatureLow,
-                summary: data.daily.data[0].summary
-            }
-            projData.weather = weatherData;
-            console.log(projData);
+    var url = (daysBtwn > 604800) ? `https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long},${unixDate}`:`https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long}`;
+    console.log(url);
+    const getData = await fetch('http://localhost:8000/darksky', {
+        method: 'POST',
+        cache: 'no-cache', 
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({url: url})
+      })
+      const data = await getData.json();
+      projData.weather = data;
+      console.log(projData);
+
+
+    // postReq('http://localhost:8000/darksky', url).then((data) => {
+    //     projData.weather = data;
+    // });
 }
+
+
 
 async function getPicture(city){
     const pixabayKey = '15014683-5b1e294ffb954d607aae92b8b';
@@ -67,13 +115,14 @@ async function getPicture(city){
         console.log(projData);
 }
 
-function updateUI(projData) {
+
+export function updateUI(data) {
     document.getElementById('weatherSummary').innerHTML = `<strong>Forecast</strong>: ${projData.weather.summary}`;
     document.getElementById('temp').innerHTML = `High of <strong>${projData.weather.tempHigh}&#8457;</strong>, low of <strong>${projData.weather.tempLow}&#8457;</strong>`;
     document.getElementById('tripPic').src = projData.picture.url;
 }
 
 export async function getAPIData(city){
-    getCoords(city).then(() => getWeatherData(projData,date)).then(() => getPicture(city)).then(() => updateUI(projData));
-}
+    getCoords(city).then(() => getWeatherData(projData,date)).then(() => getPicture(city)).then(()=> updateUI(projData))
 
+}

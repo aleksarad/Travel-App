@@ -7,6 +7,7 @@ document.getElementById('submit').addEventListener('click', function() {
     event.preventDefault();
     const city = document.getElementById('city').value;
     getAPIData(city);
+
 });
 
 
