@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Travel App</title>
-  <link rel="stylesheet" href="styles/main.scss">
+  <link rel="stylesheet" href="/styles/main.scss">
 </head>
 <body>
   <header>
     <h1>Travel Planner</h1>
   </header>
-  <form id="trip-details">
+  <section id="formMain">
+  <form id="tripDetails">
     <label for="city">My trip to</label>
-    <input type="text" id="city" placeholder="City">
-    <label for="date">Departing on</label>
-    <input type="date" id="date" placeholder="mm/dd/yyyy">
+    <input class="userInput" type="text" id="city" placeholder="City">,
+    <label for="date">departing on</label>
+    <input class="userInput" type="date" id="date" placeholder="mm/dd/yyyy">
     <input type="submit" value="Submit" id="submit">
   </form>
   <main>
@@ -22,11 +23,16 @@
     </section>
     <section id="rightcolumn">
       <div id="results">
-        <div id="weatherSummary">trip weather here</div>
-        <div id="temp">temp</div>
+        <h2>Trip Details</h2>
+        <div id="tripSummary" class="resultText">Trip to Paris, France, departing on January 28, 2020.</div>
+        <div id="weatherSummary" class="resultText">Typical weather at this time: Mostly cloudy, with a high of 45 and a low of 37.</div>
+
+        <h2>Country Details</h2>
+        <div id="countryDetails" class="resultText">The capital of France is Paris. The currency in France is the Euro. The population is 45 million</div>
       </div>
     </section>
   </main>
+  </section>
 </body>
 
 </html>

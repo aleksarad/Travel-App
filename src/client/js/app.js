@@ -16,7 +16,9 @@ async function getCoords(city) {
             const coordData = {
                 lat: data.geonames[0].lat,
                 lon: data.geonames[0].lng,
-                country: data.geonames[0].countryName
+                country: data.geonames[0].countryName,
+                countryCode: data.geonames[0].countryCode,
+                city: data.geonames[0].name
             }
             projData.coord = coordData;
             console.log(projData);
@@ -102,8 +104,8 @@ async function getWeatherData(projData, date) {
 
 async function getPicture(city){
     const pixabayKey = '15014683-5b1e294ffb954d607aae92b8b';
-    const country = projData.coord.country.replace(/\s+/g, '+');
-    const newCity = city.replace(/\s+/g, '+');
+    const country = projData.coord.countryCode;
+    const newCity = city.replace(/\s+/g, '%20');
     const imgURL = `https://pixabay.com/api/?key=${pixabayKey}&q=${newCity},${country}&image_type=photo`;
         const getData = await fetch(imgURL);
         const data = await getData.json();
@@ -115,14 +117,32 @@ async function getPicture(city){
         console.log(projData);
 }
 
+async function getCountryData(){
+    const countryCode = projData.coord.countryCode;
+    const restURL = `https://restcountries.eu/rest/v2/alpha/${countryCode}`;
+        const getData = await fetch(restURL);
+        const data = await getData.json();
+        console.log(data);
+        const countryData = {
+            capital: data.capital,
+            population: data.population,
+            currency: data.currencies[0].name,
+            flag: data.flag
+        }
+        projData.country = countryData;
+        console.log(projData);
+}
+
 
 export function updateUI(data) {
-    document.getElementById('weatherSummary').innerHTML = `<strong>Forecast</strong>: ${projData.weather.summary}`;
-    document.getElementById('temp').innerHTML = `High of <strong>${projData.weather.tempHigh}&#8457;</strong>, low of <strong>${projData.weather.tempLow}&#8457;</strong>`;
+    const inputDate = document.getElementById('date').value; 
+    document.getElementById('weatherSummary').innerHTML = `<strong>Forecast</strong>: ${projData.weather.summary} High of ${projData.weather.tempHigh}&#8457;, low of ${projData.weather.tempLow}&#8457;` ;
+    document.getElementById('tripSummary').innerHTML = `Trip to ${projData.coord.city}, ${projData.coord.country}, departing on ${inputDate}.`;
     document.getElementById('tripPic').src = projData.picture.url;
+    document.getElementById('countryDetails').innerHTML = `Enjoy your trip to  ${projData.coord.country}! The capital of ${projData.coord.country} is ${projData.country.capital}. The currency is the ${projData.country.currency}. The population is ${projData.country.population}.`
 }
 
 export async function getAPIData(city){
-    getCoords(city).then(() => getWeatherData(projData,date)).then(() => getPicture(city)).then(()=> updateUI(projData))
+    getCoords(city).then(() => getWeatherData(projData,date)).then(() => getPicture(city)).then(()=> getCountryData(projData)).then(()=> updateUI(projData))
 
 }

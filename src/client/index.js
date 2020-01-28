@@ -11,6 +11,5 @@ document.getElementById('submit').addEventListener('click', function() {
 });
 
 
-//import scss
-// import './styles/main.scss'
+import './styles/main.scss'
 //If we are exporting functions from our application.js file, our event listeners can’t go there. Where can we put them? To call that exported function?
