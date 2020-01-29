@@ -3,7 +3,7 @@ const projData = {};
 
 
 
-async function getCoords(city) {
+const getCoords = async (city) => {
     const url = `http://api.geonames.org/searchJSON?q=${city}&maxRows=10&username=aradevich`;
     console.log(url);
     const getData = await fetch(url);
@@ -30,47 +30,7 @@ async function getCoords(city) {
         }
 }
 
-
-// async function getWeatherData(projData, date) {
-    // const darkSkyKey = 'ad51d28551f5a01df42ccd0ea7805182';
-    // const unixDate = Math.round(new Date(date.value).getTime()/1000);
-    // const unixToday = Math.round(new Date().getTime()/1000);
-    // const daysBtwn = unixDate - unixToday;
-    // const lati = projData.coord.lat;
-    // const long = projData.coord.lon;
-
-    // console.log(unixDate, unixToday, daysBtwn);
-    // var url = (daysBtwn > 604800) ? `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long},${unixDate}`:`https://api.darksky.net/forecast/${darkSkyKey}/${lati},${long}`;
-    
-//     // const getData = await fetch(url);
-//     // console.log(url)
-//     // const data = await getData.json();
-//     //         console.log(data);
-//     //         const weatherData = {
-//     //             tempHigh: data.daily.data[0].temperatureHigh,
-//     //             tempLow: data.daily.data[0].temperatureLow,
-//     //             summary: data.daily.data[0].summary
-//     //         }
-//     //         projData.weather = weatherData;
-//     //         console.log(projData);
-// }
-
-// const postReq = async (path, url) => {
-//     const getData = await fetch(path, {
-//       method: 'POST',
-//       cache: 'no-cache', 
-//       credentials: 'same-origin',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({url: url})
-//     })
-//     const data = await getData;
-//     console.log(data)
-//     return data;
-// }
-
-async function getWeatherData(projData, date) {
+const getWeatherData = async (projData, date) => {
     const darkSkyKey = 'ad51d28551f5a01df42ccd0ea7805182';
     const unixDate = Math.round(new Date(date.value).getTime()/1000);
     const unixToday = Math.round(new Date().getTime()/1000);
@@ -96,8 +56,7 @@ async function getWeatherData(projData, date) {
 }
 
 
-
-async function getPicture(city){
+const getPicture = async (city) => {
     const pixabayKey = '15014683-5b1e294ffb954d607aae92b8b';
     const country = projData.coord.country;
     const newCity = city.replace(/\s+/g, '%20');
@@ -126,7 +85,8 @@ async function getPicture(city){
         console.log(projData);
 }
 
-async function getCountryData(){
+
+const getCountryData = async () => {
     const countryCode = projData.coord.countryCode;
     const restURL = `https://restcountries.eu/rest/v2/alpha/${countryCode}`;
         const getData = await fetch(restURL);
@@ -143,7 +103,7 @@ async function getCountryData(){
 }
 
 
-export function updateUI(data) {
+const updateUI = (data) => {
     const inputDate = document.getElementById('date').value; 
     const newPopulation = projData.country.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     document.getElementById('tripSummary').innerHTML = `Trip to ${projData.coord.city}, ${projData.coord.country}, departing on ${inputDate}.`;
@@ -158,7 +118,7 @@ export function updateUI(data) {
     }
 }
 
-function makeVisible() {
+const makeVisible = () => {
     const tripHeading = document.getElementById('tripHeading');
     const countryHeading = document.getElementById('countryHeading');
     const tripPic = document.getElementById('tripPic');
@@ -167,6 +127,8 @@ function makeVisible() {
     tripPic.classList.remove('hidden');
 }
 
-export async function getAPIData(city){
-    getCoords(city).then(() => getWeatherData(projData,date)).then(() => getPicture(city)).then(()=> getCountryData(projData)).then(()=> updateUI(projData)).then(() => makeVisible());
+export const getAPIData = async (city) => {
+    getCoords(city).then(() => getWeatherData(projData,date)).then(() => 
+    getPicture(city)).then(()=> getCountryData(projData)).then(()=> 
+    updateUI(projData)).then(() => makeVisible());
 }

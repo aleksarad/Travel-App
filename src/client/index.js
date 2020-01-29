@@ -3,9 +3,7 @@
 
 import { getAPIData } from './js/app.js'
 
-
-
-document.getElementById('submit').addEventListener('click', function() {
+document.getElementById('submit').addEventListener('click', () => {
     event.preventDefault(); 
     const city = document.getElementById('city').value;
     getAPIData(city);
@@ -15,9 +13,9 @@ document.getElementById('submit').addEventListener('click', function() {
 import './styles/main.scss'
 import './styles/form.scss'
 import './styles/media.scss'
+
 // todo
 // countdown!
-// change all functions to arrow functions
 // webpack.prod.js
 // jest
 // service workers

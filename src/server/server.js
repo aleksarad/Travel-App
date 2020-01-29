@@ -18,14 +18,13 @@ app.listen(8000, () => {
 });
 
 //ROUTES
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.sendFile('dist/index.html')
 })
 
-app.post('/darksky', async function (req,res){
+app.post('/darksky', async (req,res) => {
   const data = await fetch(req.body.url);
   console.log(req.body.url);
-  // console.log(data);
   const weatherData = await data.json();
   const darkSkyObj = {
     tempHigh: Math.round(weatherData.daily.data[0].temperatureHigh),
@@ -33,7 +32,6 @@ app.post('/darksky', async function (req,res){
     summary: weatherData.daily.data[0].summary
   }
   res.send(darkSkyObj);
-  // console.log(weatherData.daily.data[0].temperatureHigh, weatherData.daily.data[0].temperatureLow);
   console.log(darkSkyObj);
 });
 
