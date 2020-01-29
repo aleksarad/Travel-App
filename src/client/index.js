@@ -13,10 +13,10 @@ document.getElementById('submit').addEventListener('click', function() {
 
 
 import './styles/main.scss'
+import './styles/form.scss'
+import './styles/media.scss'
 // todo
 // countdown!
-// media-queries
-// split css files
 // change all functions to arrow functions
 // webpack.prod.js
 // jest

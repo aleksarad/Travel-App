@@ -93,11 +93,6 @@ async function getWeatherData(projData, date) {
       const data = await getData.json();
       projData.weather = data;
       console.log(projData);
-
-
-    // postReq('http://localhost:8000/darksky', url).then((data) => {
-    //     projData.weather = data;
-    // });
 }
 
 
@@ -153,7 +148,7 @@ export function updateUI(data) {
     const newPopulation = projData.country.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     document.getElementById('tripSummary').innerHTML = `Trip to ${projData.coord.city}, ${projData.coord.country}, departing on ${inputDate}.`;
     document.getElementById('tripPic').src = projData.picture.url;
-    document.getElementById('countryDetails').innerHTML = `Enjoy your trip to  ${projData.coord.country} <img class="flag" src="${projData.country.flag}"!>
+    document.getElementById('countryDetails').innerHTML = `Enjoy your trip to  ${projData.coord.country} <img class="flag" src="${projData.country.flag}"> !
     The capital of ${projData.coord.country} is ${projData.country.capital}. The currency is the ${projData.country.currency}. The population is ${newPopulation}.`
     if(projData.weather.summary == undefined) {
         document.getElementById('weatherSummary').innerHTML = `<strong>Forecast</strong>: High of ${projData.weather.tempHigh}&#8457;, low of ${projData.weather.tempLow}&#8457;` ;

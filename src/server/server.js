@@ -28,8 +28,8 @@ app.post('/darksky', async function (req,res){
   // console.log(data);
   const weatherData = await data.json();
   const darkSkyObj = {
-    tempHigh: weatherData.daily.data[0].temperatureHigh,
-    tempLow: weatherData.daily.data[0].temperatureLow,
+    tempHigh: Math.round(weatherData.daily.data[0].temperatureHigh),
+    tempLow: Math.round(weatherData.daily.data[0].temperatureLow),
     summary: weatherData.daily.data[0].summary
   }
   res.send(darkSkyObj);

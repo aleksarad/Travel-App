@@ -1,0 +1,62 @@
+$font: 'Poppins', sans-serif;
+$main-color: rgb(73, 129, 133);
+$title-font: 'Permanent Marker', cursive;
+$text-color: rgb(43, 70, 72);
+
+/*FORM*/
+form {
+    margin: 4% 2%;
+}
+
+label {
+    font-size: 22px;
+    letter-spacing: 1px;
+}
+
+input::placeholder {
+    color: $text-color;
+    font-family: $font;
+}
+
+input:focus {
+    outline: none;
+}
+
+.userInput {
+    padding-left: 10px;
+    height: 36px;
+    border: 1px solid rgba(255, 255, 255, 0);
+    border-radius: 3px;
+    box-shadow: 0px 0px 2px 1px rgba(126, 126, 126, 0.507);
+    font-size: 20px;
+    color: $text-color;
+    margin: 0 5px;
+    font-family: $font;
+}
+
+input[type=submit] {
+    border: none;
+    font-size: 20px;
+    height: 39px;
+    border-radius: 3px;
+    width: 190px;
+    border: 1px solid $main-color;
+    cursor: pointer;
+    background-color: $main-color;
+    color: white;
+    letter-spacing: 1px;
+}
+
+input[type=submit]:hover {
+    background-color: white;
+    color: $main-color;
+}
+
+
+#city {
+    width: 200px;   
+}
+
+#date {
+    width: 180px;
+}

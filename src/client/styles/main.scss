@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:200,300&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker|Poppins:200,300&display=swap');
 
 $font: 'Poppins', sans-serif;
 $main-color: rgb(73, 129, 133);
@@ -20,7 +19,7 @@ body {
 
 /*HEADER*/
 header, form {
-    text-align:center;
+    text-align: center;
    
 }
 
@@ -38,68 +37,9 @@ h1 {
     font-family: $title-font;
 }
 
-/*FORM*/
-form {
-    margin: 4% 2%;
-}
-
-label {
-    font-size: 22px;
-    letter-spacing: 1px;
-}
-
-input::placeholder {
-    color: $text-color;
-    font-family: $font;
-}
-
-input:focus {
-    outline: none;
-}
-
-.userInput {
-    padding-left: 10px;
-    height: 36px;
-    border: 1px solid rgba(255, 255, 255, 0);
-    border-radius: 3px;
-    box-shadow: 0px 0px 2px 1px rgba(126, 126, 126, 0.507);
-    font-size: 20px;
-    color: $text-color;
-    margin: 0 5px;
-    font-family: $font;
-}
-
-input[type=submit] {
-    border: none;
-    font-size: 20px;
-    height: 39px;
-    border-radius: 3px;
-    width: 190px;
-    border: 1px solid $main-color;
-    cursor: pointer;
-    background-color: $main-color;
-    color: white;
-    letter-spacing: 1px;
-}
-
-input[type=submit]:hover {
-    background-color: white;
-    color: $main-color;
-    // box-shadow: 0px 0px 2px 1px rgba(97, 173, 170, 0.55);
-}
-
-
-#city {
-    width: 200px;   
-}
-
-#date {
-    width: 180px;
-}
-
 /*MAIN*/
 main {
-    display:flex;
+    display: flex;
     width: 90%;
     margin: 0 auto;
     justify-content: center;
@@ -155,6 +95,3 @@ h2 {
   visibility:hidden;
 }
 
-.visible {
-    visibility: visible;
-}

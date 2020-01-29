@@ -1,0 +1,102 @@
+/*MEDIA*/
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 812px)
+and (orientation: portrait){
+
+    h1 {
+        height: 13vh;
+        font-size: 7em;
+        padding-top: 5vh;
+    }
+
+    form {
+        padding: 2vw;
+    }
+
+    label {
+        font-size: 4em;
+    }
+
+    .userInput, #submit {
+        font-size: 3.5em;
+        height: 5vh;
+        margin: 1vh;
+    }
+
+    #city {
+        width: 40vw;
+    }
+
+    #date {
+        width: 45vw;
+    }
+
+    #submit {
+        width: 55vw;
+    }
+
+    main {
+        flex-direction: column;
+    }
+
+    #rightcolumn, #leftcolumn {
+        text-align: center;
+        width: 100%;
+    }
+
+    #tripPic {
+        width: 80vw;
+        height: 30vh;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 4.5em;
+        margin: 1.5vh 0;
+    }
+
+    .resultText{
+        font-size: 3.5em;
+        line-height: 1.2em;
+    }
+}
+
+@media (min-width: 1920px) and (max-width: 2560px)  {
+    h1 {
+        font-size: 6em;
+    }
+
+    .userInput, #submit, label {
+        font-size: 2.5em;
+        height: 3vh;
+        margin: .5vh;
+    }
+
+    #city {
+        width: 10vw;
+    }
+
+    #date {
+        width: 13vw;
+    }
+
+    #submit {
+        width: 10vw;
+    }
+
+    #tripPic {
+        width: 30vw;
+        height: 30vh;
+    }
+
+    h2 {
+        font-size: 3em;
+        margin: 1.5vh 0;
+    }
+
+    .resultText{
+        font-size: 2.2em;
+        line-height: 1.4em;
+    }
+}
