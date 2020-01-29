@@ -3,13 +3,21 @@
 
 import { getAPIData } from './js/app.js'
 
+
+
 document.getElementById('submit').addEventListener('click', function() {
-    event.preventDefault();
+    event.preventDefault(); 
     const city = document.getElementById('city').value;
     getAPIData(city);
-
 });
 
 
 import './styles/main.scss'
-//If we are exporting functions from our application.js file, our event listeners can’t go there. Where can we put them? To call that exported function?
+// todo
+// countdown!
+// media-queries
+// split css files
+// change all functions to arrow functions
+// webpack.prod.js
+// jest
+// service workers

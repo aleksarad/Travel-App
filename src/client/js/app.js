@@ -104,16 +104,30 @@ async function getWeatherData(projData, date) {
 
 async function getPicture(city){
     const pixabayKey = '15014683-5b1e294ffb954d607aae92b8b';
-    const country = projData.coord.countryCode;
+    const country = projData.coord.country;
     const newCity = city.replace(/\s+/g, '%20');
-    const imgURL = `https://pixabay.com/api/?key=${pixabayKey}&q=${newCity},${country}&image_type=photo`;
-        const getData = await fetch(imgURL);
+    const countryURL = `https://pixabay.com/api/?key=${pixabayKey}&q=${country}&orientation=horizontal`;
+    const cityURL = `https://pixabay.com/api/?key=${pixabayKey}&q=${newCity},${country}&orientation=horizontal`;
+        const getData = await fetch(cityURL);
         const data = await getData.json();
         console.log(data);
-        const picData = {
-            url: data.hits[0].webformatURL,
+        console.log(cityURL);
+        if (data.hits.length > 0) {
+            const picData = {
+                url: data.hits[0].webformatURL
+            }
+            projData.picture = picData;
         }
-        projData.picture = picData;
+        else {
+            const getData = await fetch(countryURL);
+            console.log(countryURL)
+            const data = await getData.json();
+            const picData = {
+                url: data.hits[0].webformatURL
+            }
+            projData.picture = picData;
+        }
+        
         console.log(projData);
 }
 
@@ -136,13 +150,28 @@ async function getCountryData(){
 
 export function updateUI(data) {
     const inputDate = document.getElementById('date').value; 
-    document.getElementById('weatherSummary').innerHTML = `<strong>Forecast</strong>: ${projData.weather.summary} High of ${projData.weather.tempHigh}&#8457;, low of ${projData.weather.tempLow}&#8457;` ;
+    const newPopulation = projData.country.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     document.getElementById('tripSummary').innerHTML = `Trip to ${projData.coord.city}, ${projData.coord.country}, departing on ${inputDate}.`;
     document.getElementById('tripPic').src = projData.picture.url;
-    document.getElementById('countryDetails').innerHTML = `Enjoy your trip to  ${projData.coord.country}! The capital of ${projData.coord.country} is ${projData.country.capital}. The currency is the ${projData.country.currency}. The population is ${projData.country.population}.`
+    document.getElementById('countryDetails').innerHTML = `Enjoy your trip to  ${projData.coord.country} <img class="flag" src="${projData.country.flag}"!>
+    The capital of ${projData.coord.country} is ${projData.country.capital}. The currency is the ${projData.country.currency}. The population is ${newPopulation}.`
+    if(projData.weather.summary == undefined) {
+        document.getElementById('weatherSummary').innerHTML = `<strong>Forecast</strong>: High of ${projData.weather.tempHigh}&#8457;, low of ${projData.weather.tempLow}&#8457;` ;
+    }
+    else {
+        document.getElementById('weatherSummary').innerHTML = `<strong>Forecast</strong>: ${projData.weather.summary} High of ${projData.weather.tempHigh}&#8457;, low of ${projData.weather.tempLow}&#8457;`;
+    }
+}
+
+function makeVisible() {
+    const tripHeading = document.getElementById('tripHeading');
+    const countryHeading = document.getElementById('countryHeading');
+    const tripPic = document.getElementById('tripPic');
+    tripHeading.classList.remove('hidden');
+    countryHeading.classList.remove('hidden');
+    tripPic.classList.remove('hidden');
 }
 
 export async function getAPIData(city){
-    getCoords(city).then(() => getWeatherData(projData,date)).then(() => getPicture(city)).then(()=> getCountryData(projData)).then(()=> updateUI(projData))
-
+    getCoords(city).then(() => getWeatherData(projData,date)).then(() => getPicture(city)).then(()=> getCountryData(projData)).then(()=> updateUI(projData)).then(() => makeVisible());
 }

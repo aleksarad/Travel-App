@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:200,300&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
 
 $font: 'Poppins', sans-serif;
+$main-color: rgb(73, 129, 133);
+$title-font: 'Permanent Marker', cursive;
+$text-color: rgb(43, 70, 72);
+
 
 *{
-    // border: 1px solid;
     margin: 0;
     padding: 0;
 }
@@ -11,7 +15,7 @@ $font: 'Poppins', sans-serif;
 body {
     font-family: $font;
     font-weight: 200;
-    color: #323232
+    color: $text-color;
 }
 
 /*HEADER*/
@@ -21,21 +25,22 @@ header, form {
 }
 
 header {
-    background-color: #61ADAA;
+    background-color: $main-color;
     color: white;
 }
 
 h1 {
-    height: 9vh;
-    padding:5vh 0;
-    font-size: 52px;
+    height: 10vh;
+    padding: 3% 0;
+    font-size: 55px;
     font-weight: 300;
-    text-shadow: 0px 0px 2px #49827F;
+    text-shadow: 0px 0px 10px rgb(59, 97, 99);
+    font-family: $title-font;
 }
 
 /*FORM*/
 form {
-    margin: 50px 15px;
+    margin: 4% 2%;
 }
 
 label {
@@ -43,31 +48,44 @@ label {
     letter-spacing: 1px;
 }
 
-input {
-    height: 37px;
-    border: 1px solid #61ADAA;
-    font-size: 18px;
+input::placeholder {
+    color: $text-color;
+    font-family: $font;
+}
+
+input:focus {
+    outline: none;
 }
 
 .userInput {
     padding-left: 10px;
-    box-shadow: inset 0px 0px 2px 1px rgba(97, 173, 170, 0.55);
-    
+    height: 36px;
+    border: 1px solid rgba(255, 255, 255, 0);
+    border-radius: 3px;
+    box-shadow: 0px 0px 2px 1px rgba(126, 126, 126, 0.507);
+    font-size: 20px;
+    color: $text-color;
+    margin: 0 5px;
+    font-family: $font;
 }
 
 input[type=submit] {
     border: none;
+    font-size: 20px;
     height: 39px;
-    width: 170px;
-    border: 1px solid #61ADAA;
+    border-radius: 3px;
+    width: 190px;
+    border: 1px solid $main-color;
     cursor: pointer;
-    background-color: #61ADAA;
+    background-color: $main-color;
     color: white;
+    letter-spacing: 1px;
 }
 
 input[type=submit]:hover {
     background-color: white;
-    color: #61ADAA
+    color: $main-color;
+    // box-shadow: 0px 0px 2px 1px rgba(97, 173, 170, 0.55);
 }
 
 
@@ -76,8 +94,9 @@ input[type=submit]:hover {
 }
 
 #date {
-    width: 170px;
+    width: 180px;
 }
+
 /*MAIN*/
 main {
     display:flex;
@@ -87,21 +106,22 @@ main {
 
 }
 
-#leftcolumn{
+#leftcolumn {
     width: 50%;
     text-align: right;
 }
 
 #rightcolumn {
     width: 45%;
-    // padding: 0 15px;
     text-align: left;
     background-color:white;
 }
 
-#tripPic{
+#tripPic {
     width: 500px;
     overflow: hidden;
+    object-fit: cover;
+    border-radius: 3px;
 }
 
 #results {
@@ -110,16 +130,31 @@ main {
 
 h2 {
     font-weight: 300;
-    text-align: center;
-    margin-bottom: 10px;
+    text-align: left;
+    margin: 15px 0;
+    font-size: 22px;
 }
 
 #tripPic, #results {
-    padding: 20px;
+    margin: 20px;
     height: 90%;
 }
 
 .resultText {
     font-size: 19px;
     line-height: 30px;
+}
+
+.flag {
+    width: 25px;
+    border: 1px solid;
+    box-shadow: 0px 0px 2px 1px rgba(126, 126, 126, 0.507);
+}
+
+.hidden {
+  visibility:hidden;
+}
+
+.visible {
+    visibility: visible;
 }
