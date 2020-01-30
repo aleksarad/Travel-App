@@ -12,6 +12,10 @@ module.exports = {
         compress: true,
         port: 9000
     },
+    output: {
+        libraryTarget: 'var',
+        library: 'Client'
+    },
     module: {
         rules: [
             {

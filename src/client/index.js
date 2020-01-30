@@ -14,8 +14,8 @@ import './styles/main.scss'
 import './styles/form.scss'
 import './styles/media.scss'
 
+
+export { getAPIData }
 // todo
 // countdown!
-// webpack.prod.js
 // jest
-// service workers
