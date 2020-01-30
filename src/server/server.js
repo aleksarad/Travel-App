@@ -35,4 +35,6 @@ app.post('/darksky', async (req,res) => {
   console.log(darkSkyObj);
 });
 
+module.exports = app
+
 

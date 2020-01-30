@@ -3,7 +3,7 @@ const projData = {};
 
 
 
-const getCoords = async (city) => {
+export const getCoords = async (city) => {
     const url = `http://api.geonames.org/searchJSON?q=${city}&maxRows=10&username=aradevich`;
     console.log(url);
     const getData = await fetch(url);
