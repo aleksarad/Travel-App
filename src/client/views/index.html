@@ -3,19 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Travel App</title>
-  <link rel="stylesheet" href="/styles/main.scss">
 </head>
+
 <body>
   <header>
     <h1>Travel Planner</h1>
   </header>
-  <section id="formMain">
-  <form id="tripDetails">
+  <form id="tripDetails" >
     <label for="city">My trip to</label>
-    <input class="userInput" type="text" id="city" placeholder="City">,
+    <input class="userInput" type="text" id="city" placeholder="City" />,
     <label for="date">departing on</label>
-    <input class="userInput" type="date" id="date" placeholder="mm/dd/yyyy">
-    <input type="submit" value="Submit" id="submit">
+    <input class="userInput" type="date" id="date" placeholder="mm/dd/yyyy" />
+    <input type="submit" value="Submit" id="submit"/>
   </form>
   <main>
     <section id="leftcolumn">
@@ -23,16 +22,15 @@
     </section>
     <section id="rightcolumn">
       <div id="results">
+        <div id="countdown"></div>
         <h2 id="tripHeading" class="hidden">Trip Details</h2>
         <div id="tripSummary" class="resultText"></div>
         <div id="weatherSummary" class="resultText"></div>
-
         <h2 id="countryHeading" class="hidden">About the Country</h2>
         <div id="countryDetails" class="resultText"></div>
       </div>
     </section>
   </main>
-  </section>
   <script>
     // Check that service workers are supported
     if ('serviceWorker' in navigator) {
