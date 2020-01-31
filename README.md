@@ -25,6 +25,7 @@ A full list of dependencies can be found in package.json. This project was made 
 ## Running the Project ##
 
 1. Download zip and cd into the project.
-2. `npm run build-prod`
-3. `npm start` and go to http://localhost:8000/
+2. `npm install`
+3. `npm run build-prod`
+4. `npm start` and go to http://localhost:8000/
 
