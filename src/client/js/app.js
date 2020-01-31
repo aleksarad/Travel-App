@@ -12,10 +12,10 @@ export const getCoords = async (city) => {
     const getData = await fetch(url);
     try {
         if (getData.status !== 200) {
-        throw new Error("Not 200 response")
+            throw new Error("Not 200 response");
         }
         else {
-        const data = await getData.json();
+            const data = await getData.json();
             const coordData = {
                 lat: data.geonames[0].lat,
                 lon: data.geonames[0].lng,
@@ -27,7 +27,7 @@ export const getCoords = async (city) => {
             // console.log(projData);
         }
 //alert user if unable to retrieve API data with input city
-        } catch(error){
+        } catch(error) {
             alert('Invalid city');
             return false;
         }
@@ -35,8 +35,8 @@ export const getCoords = async (city) => {
 
 //pulls data from DarkSky API - this is done with a post request thru the server due to DarkSky CORS blocking
 const getWeatherData = async (projData, date) => {
-    const darkSkyKey = 'ad51d28551f5a01df42ccd0ea7805182';
 
+    const darkSkyKey = 'ad51d28551f5a01df42ccd0ea7805182';
     const unixDate = Math.round(new Date(date.value).getTime()/1000);
     const unixToday = Math.round(new Date().getTime()/1000);
     const unixDaysBtwn = unixDate - unixToday;
@@ -69,38 +69,41 @@ const getPicture = async (city) => {
     const pixabayKey = '15014683-5b1e294ffb954d607aae92b8b';
     const country = projData.coord.country;
     const newCity = city.replace(/\s+/g, '%20');
+
     //both urls are needed in the case that a city does not have any pictures associated with it on pixabay
     const countryURL = `https://pixabay.com/api/?key=${pixabayKey}&q=${country}&orientation=horizontal`;
     const cityURL = `https://pixabay.com/api/?key=${pixabayKey}&q=${newCity},${country}&orientation=horizontal`;
-        const getData = await fetch(cityURL);
-        const data = await getData.json();
-        // console.log(data);
-        // console.log(cityURL);
-        if (data.hits.length > 0) {
-            const picData = {
-                url: data.hits[0].webformatURL
-            }
-            projData.picture = picData;
+
+    const getData = await fetch(cityURL);
+    const data = await getData.json();
+    // console.log(data);
+    // console.log(cityURL);
+    if (data.hits.length > 0) {
+        const picData = {
+            url: data.hits[0].webformatURL
         }
-        //if the API response for the city url is less than 0, another request is sent for the country
-        else {
-            const getData = await fetch(countryURL);
-            console.log(countryURL)
-            const data = await getData.json();
-            const picData = {
-                url: data.hits[0].webformatURL
-            }
-            projData.picture = picData;
-        }     
-        // console.log(projData);
+        projData.picture = picData;
+    }
+    //if the API response for the city url is less than 0, another request is sent for the country
+    else {
+        const getData = await fetch(countryURL);
+        console.log(countryURL)
+        const data = await getData.json();
+        const picData = {
+            url: data.hits[0].webformatURL
+        }
+        projData.picture = picData;
+    }     
+    // console.log(projData);
 }
 
 //pulls data from REST country API
 const getCountryData = async () => {
     const countryCode = projData.coord.countryCode;
     const restURL = `https://restcountries.eu/rest/v2/alpha/${countryCode}`;
-        const getData = await fetch(restURL);
-        const data = await getData.json();
+
+    const getData = await fetch(restURL);
+    const data = await getData.json();
         // console.log(data);
         const countryData = {
             capital: data.capital,
@@ -128,7 +131,7 @@ const updateUI = (data) => {
     document.getElementById('countryDetails').innerHTML = `Enjoy your trip to  ${projData.coord.country} <img class="flag" src="${projData.country.flag}"> !
     The capital of ${projData.coord.country} is ${projData.country.capital}. The currency is the ${projData.country.currency}. The population is ${newPopulation}.`
     // some locations do not have the 'summary' field for future dates 
-    if(projData.weather.summary == undefined) {
+    if (projData.weather.summary == undefined) {
         document.getElementById('weatherSummary').innerHTML = `<strong>Forecast</strong>: High of ${projData.weather.tempHigh}&#8457;, low of ${projData.weather.tempLow}&#8457;` ;
     }
     else {

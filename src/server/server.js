@@ -32,8 +32,9 @@ app.post('/darksky', async (req,res) => {
     summary: weatherData.daily.data[0].summary
   }
   res.send(darkSkyObj);
-  console.log(darkSkyObj);
+  // console.log(darkSkyObj);
 });
+
 
 module.exports = app
 
