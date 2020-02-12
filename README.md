@@ -4,8 +4,9 @@ This is the final project for Udacity's Frontend Nandodegree. No starter code wa
 
 This app takes a location and date input from the user, and returns weather data, country data, and an image using 4 APIs.
 
-![app home page](https://i.ibb.co/MhK9SgQ/Screen-Shot-2020-02-11-at-11-54-17-PM.png)
 ![app home page](https://i.ibb.co/27gLLcV/Screen-Shot-2020-02-11-at-11-44-19-PM.png)
+![app showing data from APIs after user enters input](https://i.ibb.co/MhK9SgQ/Screen-Shot-2020-02-11-at-11-54-17-PM.png)
+
 
 ## About ##
 
